@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hong Kong Travel Planner</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Removed defer to ensure Alpine doesn't initialize before travelApp is defined -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Lora:italic,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
+        .blog-font { font-family: 'Lora', serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -20,20 +20,132 @@
                 activeDay: 1,
                 selectedExpenses: {},
                 itinerary: [
-                    { day: 1, title: "Iconic Skyline & Neon Nights", theme: "Urban Aesthetic", locations: [{ id: 'd1-1', time: "10:00 AM", name: "Avenue of Stars", type: "Photo Spot", desc: "Waterfront promenade with the best skyline views.", transport: "MTR TST, Exit E", map: "https://www.google.com/maps/search/Avenue+of+Stars+Hong+Kong", cost: 0 }, { id: 'd1-2', time: "12:30 PM", name: "Mammy Pancake", type: "Food", desc: "Iconic Michelin-recommended egg waffles.", map: "https://www.google.com/maps/search/Mammy+Pancake+Tsim+Sha+Tsui", cost: 40 }, { id: 'd1-3', time: "03:00 PM", name: "Star Ferry", type: "Transport", desc: "Historic ferry crossing.", map: "https://www.google.com/maps/search/Star+Ferry+Pier+Tsim+Sha+Tsui", cost: 5 }, { id: 'd1-4', time: "06:00 PM", name: "Victoria Peak (Bus 15)", type: "Viewpoint", desc: "Budget route to the peak via double-decker bus.", map: "https://www.google.com/maps/search/Victoria+Peak+Hong+Kong", cost: 12 }, { id: 'd1-5', time: "08:00 PM", name: "Hing Kee Claypot Rice", type: "Food", desc: "Temple Street famous local dinner.", map: "https://www.google.com/maps/search/Hing+Kee+Claypot+Rice", cost: 70 }] },
-                    { day: 2, title: "Instagram Estates & Zen Gardens", theme: "Symmetrical Architecture", locations: [{ id: 'd2-1', time: "09:00 AM", name: "Choi Hung Estate", type: "Photo Spot", desc: "The famous rainbow-colored basketball court.", transport: "MTR Choi Hung, Exit C4", map: "https://www.google.com/maps/search/Choi+Hung+Estate+Basketball+Court", cost: 0 }, { id: 'd2-2', time: "11:30 AM", name: "Ping Shek Estate", type: "Photo Spot", desc: "Stunning 'square tunnel' architecture.", map: "https://www.google.com/maps/search/Ping+Shek+Estate", cost: 0 }, { id: 'd2-3', time: "01:00 PM", name: "Tim Ho Wan (SSP)", type: "Food", desc: "The cheapest Michelin-starred dim sum.", map: "https://www.google.com/maps/search/Tim+Ho+Wan+Sham+Shui+Po", cost: 130 }, { id: 'd2-4', time: "03:00 PM", name: "Nan Lian Garden", type: "Culture", desc: "Tang Dynasty style golden pavilion.", transport: "MTR Diamond Hill, Exit C2", map: "https://www.google.com/maps/search/Nan+Lian+Garden", cost: 0 }] },
-                    { day: 3, title: "Transformers & Island Vibes", theme: "Density & Tarts", locations: [{ id: 'd3-1', time: "10:00 AM", name: "The Monster Building", type: "Photo Spot", desc: "Hyper-dense residential complex.", transport: "MTR Tai Koo, Exit B", map: "https://www.google.com/maps/search/Yick+Cheong+Building", cost: 0 }, { id: 'd3-2', time: "01:00 PM", name: "Sun Ying Choi Roast", type: "Food", desc: "Local roast goose/pork over rice.", map: "https://www.google.com/maps/search/Sun+Ying+Choi+Quarry+Bay", cost: 65 }, { id: 'd3-3', time: "03:00 PM", name: "Bakehouse", type: "Food", desc: "Sourdough egg tarts.", map: "https://www.google.com/maps/search/Bakehouse+Causeway+Bay", cost: 15 }] },
-                    { day: 4, title: "Heritage & Street Art", theme: "Old Meets New", locations: [{ id: 'd4-1', time: "10:00 AM", name: "Man Mo Temple", type: "Culture", desc: "Giant incense coils.", transport: "MTR Sheung Wan, Exit A2", map: "https://www.google.com/maps/search/Man+Mo+Temple+Central", cost: 0 }, { id: 'd4-2', time: "01:30 PM", name: "Tsim Chai Kee", type: "Food", desc: "Wonton noodles.", map: "https://www.google.com/maps/search/Tsim+Chai+Kee+Central", cost: 45 }, { id: 'd4-3', time: "03:00 PM", name: "Tai Kwun", type: "Culture", desc: "Former prison turned arts center.", map: "https://www.google.com/maps/search/Tai+Kwun+Central", cost: 0 }] },
-                    { day: 5, title: "Lantau Island Adventure", theme: "Nature & Giant Buddha", locations: [{ id: 'd5-1', time: "09:30 AM", name: "Ngong Ping Cable Car", type: "Culture", desc: "Scenic ride to the Big Buddha.", transport: "MTR Tung Chung", map: "https://www.google.com/maps/search/Ngong+Ping+360", cost: 235 }, { id: 'd5-2', time: "11:00 AM", name: "Big Buddha", type: "Culture", desc: "Iconic giant bronze statue.", map: "https://www.google.com/maps/search/Tian+Tan+Buddha", cost: 0 }, { id: 'd5-3', time: "01:00 PM", name: "Tai O Snacks", type: "Food", desc: "Grilled squid and giant fishballs.", map: "https://www.google.com/maps/search/Tai+O+Fishing+Village", cost: 80 }] },
-                    { day: 6, title: "Local Life & Cyberpunk Vibes", theme: "Gritty Aesthetic", locations: [{ id: 'd6-1', time: "11:00 AM", name: "Sham Shui Po Markets", type: "Photo Spot", desc: "Explore markets.", transport: "MTR Sham Shui Po, Exit C2", map: "https://www.google.com/maps/search/Apliu+Street+Market", cost: 0 }, { id: 'd6-2', time: "01:00 PM", name: "Kung Wo Tofu Factory", type: "Food", desc: "Traditional beancurd.", map: "https://www.google.com/maps/search/Kung+Wo+Beancurd+Factory", cost: 30 }, { id: 'd6-3', time: "05:00 PM", name: "Garden Hill", type: "Viewpoint", desc: "Perfect sunset city view.", map: "https://www.google.com/maps/search/Garden+Hill+Sham+Shui+Po", cost: 0 }, { id: 'd6-4', time: "07:30 PM", name: "Oi Man Sang", type: "Food", desc: "Outdoor Dai Pai Dong experience.", map: "https://www.google.com/maps/search/Oi+Man+Sang+Sham+Shui+Po", cost: 150 }] },
-                    { day: 7, title: "The Grand Finale Choice", theme: "Magic or Nature", locations: [{ id: 'd7-1', time: "10:00 AM", name: "HK Disneyland", type: "Attraction", desc: "A full day of magic.", transport: "MTR Disneyland Line", map: "https://www.google.com/maps/search/Hong+Kong+Disneyland", cost: 639 }, { id: 'd7-2', time: "10:00 AM", name: "Dragon's Back Hike", type: "Nature", desc: "Urban hike with ocean views.", transport: "Bus 9", map: "https://www.google.com/maps/search/Dragons+Back+Hong+Kong", cost: 10 }, { id: 'd7-3', time: "06:00 PM", name: "Kam's Roast Goose", type: "Food", desc: "Final feast.", transport: "MTR Wan Chai", map: "https://www.google.com/maps/search/Kams+Roast+Goose+Wan+Chai", cost: 200 }] }
+                    { 
+                        day: 1, 
+                        title: "Iconic Skyline & Neon Nights", 
+                        theme: "Urban Aesthetic", 
+                        locations: [
+                            { 
+                                id: 'd1-1', 
+                                time: "10:00 AM", 
+                                name: "Avenue of Stars", 
+                                type: "Photo Spot", 
+                                desc: "Waterfront promenade with the best skyline views.", 
+                                blog: "This is the 'Hollywood Walk of Fame' of the East. Beyond the handprints of stars like Bruce Lee, it offers a panoramic, unobstructed view of the Victoria Harbour skyline. It's the perfect place to ground yourself in the scale of Hong Kong.",
+                                transport: "MTR TST, Exit E", 
+                                map: "https://www.google.com/maps/search/Avenue+of+Stars+Hong+Kong", 
+                                cost: 0 
+                            },
+                            { 
+                                id: 'd1-2', 
+                                time: "12:30 PM", 
+                                name: "Mammy Pancake", 
+                                type: "Food", 
+                                desc: "Iconic Michelin-recommended egg waffles.", 
+                                blog: "Egg waffles (Gai Daan Jai) are the ultimate HK street snack. Mammy's versions are crispy on the outside and chewy inside. Try the chocolate chip or matcha flavors for a modern twist on a 1950s classic.",
+                                map: "https://www.google.com/maps/search/Mammy+Pancake+Tsim+Sha+Tsui", 
+                                cost: 40 
+                            },
+                            { 
+                                id: 'd1-3', 
+                                time: "03:00 PM", 
+                                name: "Star Ferry", 
+                                type: "Transport", 
+                                desc: "Historic ferry crossing.", 
+                                blog: "National Geographic calls this one of the world's most scenic boat rides. For less than $1 USD, you get a 10-minute journey that feels like a time machine. The green and white boats have been crossing this harbor since 1888.",
+                                map: "https://www.google.com/maps/search/Star+Ferry+Pier+Tsim+Sha+Tsui", 
+                                cost: 5 
+                            },
+                            { 
+                                id: 'd1-4', 
+                                time: "06:00 PM", 
+                                name: "Victoria Peak (Bus 15)", 
+                                type: "Viewpoint", 
+                                desc: "Budget route to the peak via double-decker bus.", 
+                                blog: "While the Peak Tram is iconic, Bus 15 from Central Pier is the locals' secret. Sit on the upper deck, right side, for a thrilling, winding ride up the mountain with spectacular cliff-side views of the skyscrapers below.",
+                                map: "https://www.google.com/maps/search/Victoria+Peak+Hong+Kong", 
+                                cost: 12 
+                            }
+                        ] 
+                    },
+                    { 
+                        day: 2, 
+                        title: "Instagram Estates & Zen Gardens", 
+                        theme: "Symmetrical Architecture", 
+                        locations: [
+                            { 
+                                id: 'd2-1', 
+                                time: "09:00 AM", 
+                                name: "Choi Hung Estate", 
+                                type: "Photo Spot", 
+                                desc: "The famous rainbow-colored basketball court.", 
+                                blog: "One of the oldest public housing estates in HK. 'Choi Hung' means rainbow. The pastel-colored facade serves as a vibrant backdrop that has become a global photography pilgrimage site. It represents the colorful spirit of local community life.",
+                                transport: "MTR Choi Hung, Exit C4", 
+                                map: "https://www.google.com/maps/search/Choi+Hung+Estate+Basketball+Court", 
+                                cost: 0 
+                            },
+                            { 
+                                id: 'd2-3', 
+                                time: "01:00 PM", 
+                                name: "Tim Ho Wan (SSP)", 
+                                type: "Food", 
+                                desc: "The cheapest Michelin-starred dim sum.", 
+                                blog: "This specific branch in Sham Shui Po is the most authentic. You must order the Baked BBQ Pork Buns—they have a crumbly, sweet crust and savory filling that redefined dim sum for the world.",
+                                map: "https://www.google.com/maps/search/Tim+Ho+Wan+Sham+Shui+Po", 
+                                cost: 130 
+                            }
+                        ] 
+                    },
+                    { 
+                        day: 3, 
+                        title: "Transformers & Island Vibes", 
+                        theme: "Density & Tarts", 
+                        locations: [
+                            { 
+                                id: 'd3-1', 
+                                time: "10:00 AM", 
+                                name: "The Monster Building", 
+                                type: "Photo Spot", 
+                                desc: "Hyper-dense residential complex.", 
+                                blog: "Officially known as Yick Cheong Building, this is the epitome of Hong Kong’s 'urban jungle.' It gained fame from the Transformers movie. Standing in the courtyard, you are surrounded by a wall of windows that captures the sheer scale of the city's population density.",
+                                transport: "MTR Tai Koo, Exit B", 
+                                map: "https://www.google.com/maps/search/Yick+Cheong+Building", 
+                                cost: 0 
+                            },
+                            { 
+                                id: 'd3-3', 
+                                time: "03:00 PM", 
+                                name: "Bakehouse", 
+                                type: "Food", 
+                                desc: "Sourdough egg tarts.", 
+                                blog: "Created by former Four Seasons pastry chef Gregoire Michaud. These aren't your average egg tarts; the sourdough crust gives them a deep, complex crunch that pairs perfectly with the silky egg custard. Expect a line, but it moves fast.",
+                                map: "https://www.google.com/maps/search/Bakehouse+Causeway+Bay", 
+                                cost: 15 
+                            }
+                        ] 
+                    },
+                    { 
+                        day: 4, 
+                        title: "Heritage & Street Art", 
+                        theme: "Old Meets New", 
+                        locations: [
+                            { 
+                                id: 'd4-1', 
+                                time: "10:00 AM", 
+                                name: "Man Mo Temple", 
+                                type: "Culture", 
+                                desc: "Giant incense coils.", 
+                                blog: "Built in 1847, this temple is dedicated to the gods of Literature (Man) and War (Mo). The atmosphere inside is thick with smoke from giant hanging incense spirals, creating a mystical, quiet escape from the roaring streets of Central just outside.",
+                                transport: "MTR Sheung Wan, Exit A2", 
+                                map: "https://www.google.com/maps/search/Man+Mo+Temple+Central", 
+                                cost: 0 
+                            }
+                        ] 
+                    }
                 ],
                 instagramSpots: [
                     { name: "Choi Hung Estate", tip: "Go to the top floor of the car park. Wide angle (0.5x) is best.", time: "Morning", tag: "#ChoiHungEstate" },
-                    { name: "The Monster Building", tip: "Point your camera straight up from the center of the courtyard.", time: "Late afternoon", tag: "#YickCheongBuilding" },
-                    { name: "Graham Street Mural", tip: "Wait for a red taxi to pass by for that perfect contrast!", time: "Noon", tag: "#GrahamStreetMural" },
-                    { name: "Lok Wah South Estate", tip: "Blue circular 'time tunnels'.", time: "Golden Hour", tag: "#LokWahSouthEstate" },
-                    { name: "Victoria Harbour (TST)", tip: "Go to second level of TST ferry pier.", time: "8:00 PM", tag: "#HongKongSkyline" }
+                    { name: "The Monster Building", tip: "Point your camera straight up from the center of the courtyard.", time: "Late afternoon", tag: "#YickCheongBuilding" }
                 ],
                 init() {
                     this.itinerary.forEach(day => {
@@ -66,18 +178,17 @@
 <body class="bg-slate-50 text-slate-900 pb-24" x-data="travelApp()">
 
     <!-- Header -->
-    <header class="bg-indigo-600 text-white p-6 shadow-lg sticky top-0 z-20">
+    <header class="bg-slate-900 text-white p-6 shadow-xl sticky top-0 z-20 border-b border-white/10">
         <div class="max-w-md mx-auto flex justify-between items-center">
             <div>
-                <h1 class="text-2xl font-bold flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    HK Explorer
+                <h1 class="text-2xl font-black flex items-center gap-2 tracking-tighter">
+                    <span class="bg-indigo-600 p-1 rounded">HK</span> EXPLORER
                 </h1>
-                <p class="text-indigo-100 text-sm">Budget & Aesthetic Guide</p>
+                <p class="text-slate-400 text-[10px] uppercase font-bold tracking-widest mt-1">7-Day Curated Experience</p>
             </div>
-            <div class="bg-white/20 backdrop-blur-md rounded-2xl p-2 px-4 flex flex-col items-end">
-                <span class="text-[10px] uppercase font-bold text-indigo-100">Total Est.</span>
-                <span class="font-mono font-black text-lg leading-none" x-text="'$' + totalBudget + ' HKD'"></span>
+            <div class="bg-white/10 backdrop-blur-md rounded-xl p-2 px-4 border border-white/10 text-right">
+                <span class="text-[9px] uppercase font-bold text-slate-400">Budget</span>
+                <span class="block font-mono font-black text-lg text-emerald-400 leading-none" x-text="'$' + totalBudget"></span>
             </div>
         </div>
     </header>
@@ -86,51 +197,82 @@
         <!-- Plan Tab -->
         <template x-if="activeTab === 'plan'">
             <div class="space-y-6">
-                <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-                    <template x-for="day in [1, 2, 3, 4, 5, 6, 7]" :key="day">
+                <!-- Day Selector -->
+                <div class="flex gap-2 overflow-x-auto pb-4 no-scrollbar">
+                    <template x-for="dayObj in itinerary" :key="dayObj.day">
                         <button
-                            @click="activeDay = day"
-                            :class="activeDay === day ? 'bg-indigo-600 text-white shadow-md scale-105' : 'bg-white text-slate-400 border border-slate-200'"
-                            class="flex-shrink-0 w-12 h-12 rounded-xl flex flex-col items-center justify-center transition-all"
+                            @click="activeDay = dayObj.day"
+                            :class="activeDay === dayObj.day ? 'bg-indigo-600 text-white shadow-lg ring-2 ring-indigo-600 ring-offset-2' : 'bg-white text-slate-400 border border-slate-200'"
+                            class="flex-shrink-0 w-14 h-14 rounded-2xl flex flex-col items-center justify-center transition-all duration-300"
                         >
-                            <span class="text-[10px] uppercase font-bold leading-none">Day</span>
-                            <span class="text-lg font-bold" x-text="day"></span>
+                            <span class="text-[9px] uppercase font-black leading-none mb-1">Day</span>
+                            <span class="text-xl font-black" x-text="dayObj.day"></span>
                         </button>
                     </template>
                 </div>
 
-                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
-                    <div class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider inline-block mb-2" x-text="currentDayData().theme"></div>
-                    <h2 class="text-xl font-black text-slate-800" x-text="currentDayData().title"></h2>
+                <!-- Day Header -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-5">
+                        <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+                    </div>
+                    <div class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest inline-block mb-3" x-text="currentDayData().theme"></div>
+                    <h2 class="text-2xl font-black text-slate-900 leading-tight" x-text="currentDayData().title"></h2>
                 </div>
 
-                <div class="relative space-y-6 before:content-[''] before:absolute before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
-                    <template x-for="loc in currentDayData().locations" :key="loc.id">
-                        <div class="relative pl-10">
-                            <div class="absolute left-2.5 top-1 w-3.5 h-3.5 bg-indigo-600 rounded-full border-4 border-slate-50 z-10 shadow-sm"></div>
-                            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
-                                <div class="flex justify-between items-start mb-2">
-                                    <div class="flex items-center gap-2 text-indigo-600 font-bold text-sm">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                        <span x-text="loc.time"></span>
-                                    </div>
-                                    <template x-if="loc.cost > 0">
-                                        <div class="flex items-center gap-1.5 text-emerald-600 font-bold text-sm bg-emerald-50 px-2 py-0.5 rounded-lg">
-                                            <span x-text="'$' + loc.cost"></span>
-                                        </div>
-                                    </template>
+                <!-- Itinerary Timeline -->
+                <div class="space-y-8 mt-4">
+                    <template x-for="(loc, index) in currentDayData().locations" :key="loc.id">
+                        <div class="relative">
+                            <!-- Vertical Line -->
+                            <template x-if="index < currentDayData().locations.length - 1">
+                                <div class="absolute left-6 top-12 bottom-[-32px] w-0.5 bg-dashed bg-slate-200 border-l-2 border-dashed"></div>
+                            </template>
+
+                            <div class="flex gap-4">
+                                <!-- Time Indicator -->
+                                <div class="flex-shrink-0 w-12 text-center pt-2">
+                                    <span class="text-[10px] font-black text-slate-400 uppercase block leading-none mb-1" x-text="loc.time.split(' ')[1]"></span>
+                                    <span class="text-sm font-bold text-slate-900" x-text="loc.time.split(' ')[0]"></span>
                                 </div>
-                                <h3 class="text-lg font-bold text-slate-800 mb-1" x-text="loc.name"></h3>
-                                <p class="text-slate-500 text-sm mb-4 leading-relaxed" x-text="loc.desc"></p>
-                                <template x-if="loc.transport">
-                                    <div class="flex items-center gap-2 text-[11px] text-slate-400 font-semibold mb-4 uppercase">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1z"></path></svg>
-                                        <span x-text="loc.transport"></span>
+
+                                <!-- Card -->
+                                <div class="flex-grow bg-white rounded-3xl p-5 shadow-sm border border-slate-100 group transition-all hover:shadow-md">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <span class="text-[10px] font-black uppercase tracking-widest text-indigo-500 bg-indigo-50 px-2 py-1 rounded-lg" x-text="loc.type"></span>
+                                        <template x-if="loc.cost > 0">
+                                            <span class="text-xs font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg" x-text="'HKD ' + loc.cost"></span>
+                                        </template>
+                                        <template x-if="loc.cost === 0">
+                                            <span class="text-[10px] font-black uppercase text-slate-300 bg-slate-50 px-2 py-1 rounded-lg">Free</span>
+                                        </template>
                                     </div>
-                                </template>
-                                <a :href="loc.map" target="_blank" class="w-full bg-slate-900 text-white py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors">
-                                    Open in Maps
-                                </a>
+
+                                    <h3 class="text-xl font-black text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors" x-text="loc.name"></h3>
+                                    <p class="text-slate-500 text-sm mb-4 leading-relaxed font-medium" x-text="loc.desc"></p>
+                                    
+                                    <!-- Travel Blog / Reason Why Section -->
+                                    <div class="bg-slate-50 rounded-2xl p-4 mb-4 border-l-4 border-indigo-400">
+                                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-1">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                            Traveler's Note
+                                        </h4>
+                                        <p class="blog-font italic text-slate-700 text-[15px] leading-relaxed" x-text="loc.blog"></p>
+                                    </div>
+
+                                    <div class="flex items-center gap-4">
+                                        <template x-if="loc.transport">
+                                            <div class="flex items-center gap-1.5 text-[11px] text-slate-400 font-bold uppercase overflow-hidden whitespace-nowrap text-ellipsis">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1z"></path></svg>
+                                                <span x-text="loc.transport"></span>
+                                            </div>
+                                        </template>
+                                        <a :href="loc.map" target="_blank" class="ml-auto bg-slate-100 hover:bg-slate-200 text-slate-600 p-2 px-4 rounded-xl text-[11px] font-black uppercase transition-colors flex items-center gap-2">
+                                            <span>Guide</span>
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -140,31 +282,39 @@
 
         <!-- Budget Tab -->
         <template x-if="activeTab === 'budget'">
-            <div class="space-y-4">
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 mb-6 text-center">
-                    <h2 class="text-xl font-black text-slate-800 mb-1">Trip Budget Planner</h2>
-                    <p class="text-slate-500 text-sm">Select activities to calculate your total cost</p>
+            <div class="space-y-4 pb-12">
+                <div class="bg-indigo-600 rounded-3xl p-8 shadow-xl text-center text-white relative overflow-hidden">
+                    <div class="relative z-10">
+                        <p class="text-indigo-100 text-xs font-bold uppercase tracking-widest mb-2">Estimated Total Spend</p>
+                        <h2 class="text-5xl font-black font-mono" x-text="'$' + totalBudget"></h2>
+                        <p class="text-indigo-200 text-[10px] mt-4 font-bold">HKD (HONG KONG DOLLARS)</p>
+                    </div>
+                    <div class="absolute -bottom-8 -right-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                 </div>
+
                 <template x-for="day in itinerary" :key="day.day">
                     <div class="space-y-2">
-                        <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest px-2" x-text="'Day ' + day.day + ': ' + day.title"></h3>
-                        <div class="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm">
+                        <div class="flex items-center justify-between px-2 pt-4">
+                            <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest" x-text="'Day ' + day.day"></h3>
+                            <span class="text-[10px] font-bold text-slate-300" x-text="day.title"></span>
+                        </div>
+                        <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm">
                             <template x-for="loc in day.locations" :key="loc.id">
                                 <div 
                                     @click="toggleExpense(loc.id)"
-                                    :class="selectedExpenses[loc.id] ? 'bg-white' : 'bg-slate-50 opacity-60'"
-                                    class="flex items-center justify-between p-4 cursor-pointer transition-colors border-b border-slate-50 last:border-0"
+                                    :class="selectedExpenses[loc.id] ? 'bg-white' : 'bg-slate-50 opacity-50'"
+                                    class="flex items-center justify-between p-4 px-6 cursor-pointer transition-all border-b border-slate-50 last:border-0"
                                 >
-                                    <div class="flex items-center gap-3">
-                                        <div :class="selectedExpenses[loc.id] ? 'text-indigo-600' : 'text-slate-300'">
+                                    <div class="flex items-center gap-4">
+                                        <div :class="selectedExpenses[loc.id] ? 'text-indigo-600 scale-110' : 'text-slate-300 scale-100'" class="transition-transform duration-300">
                                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                                         </div>
                                         <div>
-                                            <p class="font-bold text-sm" :class="selectedExpenses[loc.id] ? 'text-slate-800' : 'text-slate-400'" x-text="loc.name"></p>
-                                            <p class="text-[10px] text-slate-400 font-bold uppercase" x-text="loc.type"></p>
+                                            <p class="font-black text-sm text-slate-800" x-text="loc.name"></p>
+                                            <p class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter" x-text="loc.type"></p>
                                         </div>
                                     </div>
-                                    <div class="font-mono font-bold" :class="selectedExpenses[loc.id] ? 'text-emerald-600' : 'text-slate-300'" x-text="'$' + loc.cost"></div>
+                                    <div class="font-mono font-bold text-sm" :class="selectedExpenses[loc.id] ? 'text-emerald-600' : 'text-slate-300'" x-text="'$' + loc.cost"></div>
                                 </div>
                             </template>
                         </div>
@@ -176,68 +326,68 @@
         <!-- Tips Tab -->
         <template x-if="activeTab === 'tips'">
             <div class="space-y-6">
-                <section class="space-y-3">
-                    <div class="flex items-center gap-2 px-2 text-amber-500 font-black text-sm uppercase tracking-widest">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.674a1 1 0 00.922-.627l.338-.844a1 1 0 00-.325-1.144l-.634-.476a6 6 0 10-7.336 0l-.634.476a1 1 0 00-.325 1.144l.338.844a1 1 0 00.922.627z"></path></svg>
-                        Travel Essentials
-                    </div>
-                    <div class="grid grid-cols-1 gap-3">
-                        <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-                            <h4 class="font-bold text-slate-800 flex items-center gap-2 mb-1">Octopus Card</h4>
-                            <p class="text-sm text-slate-500">Essential for all transport. Download the "Octopus for Tourists" app to use your iPhone/Watch instead of a physical card.</p>
+                <!-- Blog Style Tip Cards -->
+                <div class="space-y-4">
+                    <div class="bg-amber-50 rounded-3xl p-6 border border-amber-100">
+                        <div class="flex items-center gap-2 mb-3 text-amber-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            <h3 class="font-black uppercase text-xs tracking-widest">Local Knowledge</h3>
                         </div>
-                        <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-                            <h4 class="font-bold text-slate-800 flex items-center gap-2 mb-1">Dining Etiquette</h4>
-                            <p class="text-sm text-slate-500">In busy local spots, "sharing tables" (daap toi) is expected. Don't be surprised if strangers sit next to you!</p>
-                        </div>
+                        <h4 class="text-xl font-black text-slate-900 mb-2">The Octopus Card Trick</h4>
+                        <p class="blog-font text-slate-700 leading-relaxed">Don't waste time queuing for tickets. Download the "Octopus for Tourists" app on your phone. You can top it up with your credit card and simply tap your phone at every MTR gate and bus. It works at 7-Eleven too!</p>
                     </div>
-                </section>
 
-                <section class="space-y-3">
-                    <div class="flex items-center gap-2 px-2 text-pink-500 font-black text-sm uppercase tracking-widest">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
-                        The Aesthetic Guide
+                    <div class="bg-indigo-50 rounded-3xl p-6 border border-indigo-100">
+                        <div class="flex items-center gap-2 mb-3 text-indigo-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <h3 class="font-black uppercase text-xs tracking-widest">Food Culture</h3>
+                        </div>
+                        <h4 class="text-xl font-black text-slate-900 mb-2">Sharing is Caring (Daap Toi)</h4>
+                        <p class="blog-font text-slate-700 leading-relaxed">Hong Kong is dense, and so are the restaurants. If you see an empty seat at a table where people are already eating, the staff will sit you there. It’s not rude—it’s the HK way. Just nod, sit, and enjoy your meal!</p>
                     </div>
+                </div>
+
+                <div class="px-2 pt-4">
+                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Aesthetic Photo Spots</h3>
                     <template x-for="spot in instagramSpots" :key="spot.name">
-                        <div class="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm">
-                            <div class="p-4 bg-slate-900 text-white flex justify-between items-center">
-                                <span class="font-bold text-sm" x-text="spot.name"></span>
-                                <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full" x-text="spot.tag"></span>
+                        <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm mb-4">
+                            <div class="p-4 bg-slate-900 text-white flex justify-between items-center px-6">
+                                <span class="font-black text-xs uppercase tracking-tight" x-text="spot.name"></span>
+                                <span class="text-[9px] bg-indigo-600 font-bold px-2 py-1 rounded-lg" x-text="spot.tag"></span>
                             </div>
-                            <div class="p-4 space-y-3">
-                                <div class="flex gap-2">
-                                    <div class="mt-1 text-indigo-500">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                                    </div>
-                                    <div>
-                                        <p class="text-[11px] font-bold text-slate-400 uppercase">Pro Tip</p>
-                                        <p class="text-sm text-slate-600 leading-relaxed" x-text="spot.tip"></p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center justify-between pt-2 border-t border-slate-50">
-                                    <span class="text-xs text-slate-400 flex items-center gap-1" x-text="'Best Time: ' + spot.time"></span>
+                            <div class="p-5">
+                                <p class="blog-font italic text-slate-600 text-sm mb-3" x-text="'“' + spot.tip + '”'"></p>
+                                <div class="flex items-center gap-2 text-[10px] font-black text-indigo-500 uppercase tracking-tighter">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <span x-text="'Best time to go: ' + spot.time"></span>
                                 </div>
                             </div>
                         </div>
                     </template>
-                </section>
+                </div>
             </div>
         </template>
     </main>
 
-    <!-- Navigation -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-8 py-4 flex justify-around items-center max-w-md mx-auto z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
-        <button @click="activeTab = 'plan'" :class="activeTab === 'plan' ? 'text-indigo-600 scale-110' : 'text-slate-400'" class="flex flex-col items-center gap-1 transition-all">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            <span class="text-[10px] font-black uppercase">Itinerary</span>
+    <!-- Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-slate-100 px-8 py-4 flex justify-around items-center max-w-md mx-auto z-30 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+        <button @click="activeTab = 'plan'" :class="activeTab === 'plan' ? 'text-indigo-600' : 'text-slate-300'" class="flex flex-col items-center gap-1.5 transition-all">
+            <div :class="activeTab === 'plan' ? 'bg-indigo-50' : ''" class="p-2 rounded-xl transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </div>
+            <span class="text-[9px] font-black uppercase tracking-widest">Plan</span>
         </button>
-        <button @click="activeTab = 'budget'" :class="activeTab === 'budget' ? 'text-indigo-600 scale-110' : 'text-slate-400'" class="flex flex-col items-center gap-1 transition-all">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-            <span class="text-[10px] font-black uppercase">Expenses</span>
+        <button @click="activeTab = 'budget'" :class="activeTab === 'budget' ? 'text-indigo-600' : 'text-slate-300'" class="flex flex-col items-center gap-1.5 transition-all">
+            <div :class="activeTab === 'budget' ? 'bg-indigo-50' : ''" class="p-2 rounded-xl transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+            </div>
+            <span class="text-[9px] font-black uppercase tracking-widest">Budget</span>
         </button>
-        <button @click="activeTab = 'tips'" :class="activeTab === 'tips' ? 'text-indigo-600 scale-110' : 'text-slate-400'" class="flex flex-col items-center gap-1 transition-all">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <span class="text-[10px] font-black uppercase">Tips</span>
+        <button @click="activeTab = 'tips'" :class="activeTab === 'tips' ? 'text-indigo-600' : 'text-slate-300'" class="flex flex-col items-center gap-1.5 transition-all">
+            <div :class="activeTab === 'tips' ? 'bg-indigo-50' : ''" class="p-2 rounded-xl transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <span class="text-[9px] font-black uppercase tracking-widest">Tips</span>
         </button>
     </nav>
 </body>
