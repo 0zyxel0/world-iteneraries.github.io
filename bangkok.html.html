@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+    @page {
+        size: A4;
+        margin: 12mm 12mm;
+        background-color: #0f172a;
+    }
+    
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        color: #f8fafc;
+        background-color: #0f172a;
+        font-size: 9.5pt;
+        line-height: 1.4;
+    }
+
+    /* Header Styling */
+    .header {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        border: 1px solid #334155;
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .header-title {
+        color: #f59e0b;
+        font-size: 22pt;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin: 0 0 6px 0;
+        text-transform: uppercase;
+    }
+
+    .header-subtitle {
+        color: #94a3b8;
+        font-size: 11pt;
+        font-weight: 400;
+        margin: 0;
+    }
+
+    .header-badge {
+        position: absolute;
+        top: 20px;
+        right: 24px;
+        background-color: rgba(245, 158, 11, 0.15);
+        border: 1px solid #f59e0b;
+        color: #fbbf24;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 9pt;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    /* Grid Layout for Overview */
+    .summary-grid {
+        display: table;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .summary-cell {
+        display: table-cell;
+        width: 32%;
+        background-color: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .summary-cell:nth-child(2) {
+        width: 2%; /* Spacer */
+        background: transparent;
+        border: none;
+    }
+
+    .stat-number {
+        font-size: 18pt;
+        font-weight: 800;
+        color: #38bdf8;
+        margin-bottom: 2px;
+    }
+
+    .stat-label {
+        color: #94a3b8;
+        font-size: 8pt;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Section Headings */
+    .section-header {
+        border-bottom: 2px solid #334155;
+        padding-bottom: 6px;
+        margin-top: 18px;
+        margin-bottom: 14px;
+    }
+
+    .section-title {
+        color: #f1f5f9;
+        font-size: 13pt;
+        font-weight: 700;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Day Cards Table Layout */
+    .day-card {
+        background-color: #1e293b;
+        border-left: 4px solid #f59e0b;
+        border-top: 1px solid #334155;
+        border-right: 1px solid #334155;
+        border-bottom: 1px solid #334155;
+        border-radius: 0 8px 8px 0;
+        padding: 12px 16px;
+        margin-bottom: 12px;
+        page-break-inside: avoid;
+    }
+
+    .day-title {
+        color: #fbbf24;
+        font-size: 11pt;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .meal-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .meal-table td {
+        padding: 4px 0;
+        vertical-align: top;
+    }
+
+    .meal-type {
+        width: 75px;
+        font-weight: 700;
+        color: #38bdf8;
+        font-size: 8.5pt;
+        text-transform: uppercase;
+    }
+
+    .restaurant-name {
+        color: #f8fafc;
+        font-weight: 700;
+    }
+
+    .star-rating {
+        color: #f59e0b;
+        font-size: 8pt;
+    }
+
+    .cuisine-tag {
+        color: #94a3b8;
+        font-size: 8.5pt;
+        font-style: italic;
+    }
+
+    /* List of all 30 */
+    .restaurants-grid {
+        display: table;
+        width: 100%;
+    }
+
+    .column {
+        display: table-cell;
+        width: 49%;
+        vertical-align: top;
+    }
+
+    .column-spacer {
+        display: table-cell;
+        width: 2%;
+    }
+
+    .mini-card {
+        background-color: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 6px;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+        page-break-inside: avoid;
+    }
+
+    .mini-card-title {
+        font-weight: 700;
+        color: #f8fafc;
+        font-size: 9pt;
+    }
+
+    .mini-card-desc {
+        color: #94a3b8;
+        font-size: 8pt;
+        margin-top: 2px;
+    }
+
+    .badge-3star {
+        background-color: #f59e0b;
+        color: #0f172a;
+        font-weight: 800;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-size: 7.5pt;
+    }
+
+    .badge-2star {
+        background-color: #38bdf8;
+        color: #0f172a;
+        font-weight: 800;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-size: 7.5pt;
+    }
+
+    .badge-1star {
+        background-color: #475569;
+        color: #f8fafc;
+        font-weight: 700;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-size: 7.5pt;
+    }
+
+    /* Tips Box */
+    .tips-box {
+        background-color: rgba(30, 41, 59, 0.7);
+        border: 1px dashed #475569;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-top: 15px;
+        page-break-inside: avoid;
+    }
+
+    .tips-title {
+        color: #f59e0b;
+        font-weight: 700;
+        font-size: 9.5pt;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+    }
+
+    .tips-list {
+        margin: 0;
+        padding-left: 18px;
+        color: #cbd5e1;
+        font-size: 8.5pt;
+    }
+
+    .tips-list li {
+        margin-bottom: 3px;
+    }
+
+</style>
+</head>
+<body>
+
+    <!-- Main Header -->
+    <div class="header">
+        <div class="header-title">Bangkok Michelin Guide</div>
+        <div class="header-subtitle">Ultimate 7-Day Culinary Itinerary Across All 30 Starred Restaurants</div>
+        <div class="header-badge">30 RESTAURANTS</div>
+    </div>
+
+    <!-- Quick Stats Summary -->
+    <div class="summary-grid">
+        <div class="summary-cell">
+            <div class="stat-number">1</div>
+            <div class="stat-label">3 Michelin Star</div>
+        </div>
+        <div class="summary-cell"></div>
+        <div class="summary-cell">
+            <div class="stat-number">6</div>
+            <div class="stat-label">2 Michelin Stars</div>
+        </div>
+        <div class="summary-cell"></div>
+        <div class="summary-cell">
+            <div class="stat-number">23</div>
+            <div class="stat-label">1 Michelin Star</div>
+        </div>
+    </div>
+
+    <!-- Part 1: The 7-Day Itinerary -->
+    <div class="section-header">
+        <div class="section-title">🗺️ 7-Day Curated Itinerary</div>
+    </div>
+
+    <div class="day-card">
+        <div class="day-title">DAY 1: HISTORIC OLD TOWN & HERITAGE (YAOWARAT / PHRA NAKHON)</div>
+        <table class="meal-table">
+            <tr>
+                <td class="meal-type">LUNCH</td>
+                <td><span class="restaurant-name">Jay Fai</span> <span class="star-rating">★</span> — <span class="cuisine-tag">Iconic Street Food Crab Omelet</span></td>
+            </tr>
+            <tr>
+                <td class="meal-type">MID-DAY</td>
+                <td><span class="restaurant-name">Methavalai Sorndaeng</span> <span class="star-rating">★</span> — <span class="cuisine-tag">Classic Thai Dining & Live Old-School Music</span></td>
+            </tr>
+            <tr>
+                <td class="meal-type">DINNER</td>
+                <td><span class="restaurant-name">Potong</span> <span class="star-rating">★</span> — <span class="cuisine-tag">Progressive Thai-Chinese Fine Dining</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="day-card">
+        <div class="day-title">DAY 2: CHAO PHRAYA RIVERSIDE LUXURY</div>
+        <table class="meal-table">
+            <tr>
+                <td class="meal-type">LUNCH</td>
+                <td><span class="restaurant-name">Aksorn</span> <span class="star-rating">★</span> — <span class="cuisine-tag">Vintage 1950s–1970s Thai Recipes by David Thompson</span></td>
+            </tr>
+            <tr>
+                <td class="meal-type">DINNER</td>
+                <td><span class="restaurant-name">Côte by Mauro Colagreco</span> <span class="star-rating">★</span> — <span class="cuisine-tag">Elegant French-Italian Riviera Cuisine</span></td>
+            </tr>
+            <tr>
+                <td class="meal-type">DRINKS</td>
+                <td><span class="restaurant-name">Chef's Table</span> <span class="star-rating">★★</span> — <span class="cuisine-tag">Skyline French Mastery at Lebua Tower</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="day-card">
+        <div class="day-title">DAY 3: SATHORN & SILOM GASTRONOMY</div>
+        <table class="meal-table">
+            <tr>
+                <td class="meal-type">LUNCH</td>
+                <td><span class="restaurant-name">Nahm</span> <span class="star-rating">★</span> — <span class="cuisine-tag">Refined & Robust Classical Thai Cuisine</span></td>
+            </tr>
+            <tr>
+                <td class="meal-type">DINNER</td>
+                <td><span class="restaurant-name">Sorn</span> <span class="star-rating">★★★</span> — <span class="cuisine-tag">Southern Thai Fine Dining (Hardest Table in Asia)</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="day-card">
+        <div class="day-title">DAY 4: SUKHUMVIT CENTRAL & FUSION</div>
+        <table class="meal-table">
+            <tr>
+                <td class="meal-type">LUNCH</td>
+                <td><span class="restaurant-name">Resonance</span> <span class="star-rating">★</span> — <span class="cuisine-tag">Boundless Asian Contemporary Fusion</span></td>
+            </tr>
+            <tr>
+                <td class="meal-type">DINNER</td>
+                <td><span class="restaurant-name">Sühring</span> <span class="star-rating">★★</span> — <span class="cuisine-tag">Elevated Modern German Cuisine in a Garden Villa</span></td>
+            </tr>
+            <tr>
+                <td class="meal-type">ALT DINNER</td>
+                <td><span class="restaurant-name">Haoma</span> <span class="star-rating">★</span> — <span class="cuisine-tag">Sustainable, Zero-Waste Neo-Indian Dining</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="day-card">
+        <div class="day-title">DAY 5: THONGLOR & EKKAMAI TRENDY DISTRICT</div>
+        <table class="meal-table">
+            <tr>
+                <td class="meal-type">LUNCH</td>
+                <td><span class="restaurant-name">Le Du</span> <span class="star-rating">★</span> — <span class="cuisine-tag">Modern Seasonal Regional Thai</span></td>
+            </tr>
+            <tr>
+                <td class="meal-type">DINNER</td>
+                <td><span class="restaurant-name">Baan Tepa</span> <span class="star-rating">★★</span> — <span class="cuisine-tag">Organic Farm-to-Table Thai Culinary Art</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="day-card">
+        <div class="day-title">DAY 6: PLOENCHIT & CENTRAL BANGKOK</div>
+        <table class="meal-table">
+            <tr>
+                <td class="meal-type">LUNCH</td>
+                <td><span class="restaurant-name">Saneh Jaan</span> <span class="star-rating">★</span> — <span class="cuisine-tag">Polished Royal Thai Classics</span></td>
+            </tr>
+            <tr>
+                <td class="meal-type">DINNER</td>
+                <td><span class="restaurant-name">Gaa</span> <span class="star-rating">★★</span> — <span class="cuisine-tag">Modern Indian-Thai Fusion by Chef Garima Arora</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="day-card">
+        <div class="day-title">DAY 7: THE GRAND FINALE</div>
+        <table class="meal-table">
+            <tr>
+                <td class="meal-type">LUNCH</td>
+                <td><span class="restaurant-name">Blue by Alain Ducasse</span> <span class="star-rating">★</span> — <span class="cuisine-tag">French Elegance Overlooking Chao Phraya</span></td>
+            </tr>
+            <tr>
+                <td class="meal-type">DINNER</td>
+                <td><span class="restaurant-name">Mezzaluna</span> <span class="star-rating">★★</span> — <span class="cuisine-tag">French-Japanese Mastery on 65th Floor</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Part 2: Full Directory of All 30 Restaurants -->
+    <div class="section-header" style="margin-top: 24px;">
+        <div class="section-title">📋 Complete Directory of All 30 Restaurants</div>
+    </div>
+
+    <div class="restaurants-grid">
+        <div class="column">
+            <!-- 3 Stars -->
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-3star">3 STARS</span> Sorn</div>
+                <div class="mini-card-desc">Southern Thai Fine Dining</div>
+            </div>
+
+            <!-- 2 Stars -->
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-2star">2 STARS</span> Sühring</div>
+                <div class="mini-card-desc">Modern German</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-2star">2 STARS</span> R-Haan</div>
+                <div class="mini-card-desc">Royal Thai Cuisine</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-2star">2 STARS</span> Baan Tepa</div>
+                <div class="mini-card-desc">Modern Thai Farm-to-Table</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-2star">2 STARS</span> Gaa</div>
+                <div class="mini-card-desc">Modern Indian-Thai Fusion</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-2star">2 STARS</span> Chef’s Table</div>
+                <div class="mini-card-desc">Modern French (Lebua Tower)</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-2star">2 STARS</span> Mezzaluna</div>
+                <div class="mini-card-desc">French-Japanese Fine Dining</div>
+            </div>
+
+            <!-- 1 Star Part 1 -->
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Jay Fai</div>
+                <div class="mini-card-desc">Thai Street Food Master</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Paste</div>
+                <div class="mini-card-desc">Heritage Royal Thai</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Saneh Jaan</div>
+                <div class="mini-card-desc">Traditional Royal Thai</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Nahm</div>
+                <div class="mini-card-desc">Authentic Classical Thai</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Methavalai Sorndaeng</div>
+                <div class="mini-card-desc">Retro Traditional Thai</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Chim by Siam Wisdom</div>
+                <div class="mini-card-desc">Traditional Thai in Teak House</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Le Du</div>
+                <div class="mini-card-desc">Modern Regional Thai</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Kaan</div>
+                <div class="mini-card-desc">Modern Thai Regional Expressions</div>
+            </div>
+        </div>
+
+        <div class="column-spacer"></div>
+
+        <div class="column">
+            <!-- 1 Star Part 2 -->
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Nusara</div>
+                <div class="mini-card-desc">Modern Thai overlooking Wat Pho</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Côte by Mauro Colagreco</div>
+                <div class="mini-card-desc">French-Italian Riviera</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Signature</div>
+                <div class="mini-card-desc">Floral-infused Modern French</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Blue by Alain Ducasse</div>
+                <div class="mini-card-desc">Contemporary French</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Haoma</div>
+                <div class="mini-card-desc">Sustainable Neo-Indian</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Igniv by Andreas Caminada</div>
+                <div class="mini-card-desc">Modern Swiss/European Sharing</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Maison Dunand</div>
+                <div class="mini-card-desc">Savoyard-inspired French</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Canvas</div>
+                <div class="mini-card-desc">Avant-Garde Local Artistry</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Elements (inspired by Ciel Bleu)</div>
+                <div class="mini-card-desc">French-Japanese Fine Dining</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Potong</div>
+                <div class="mini-card-desc">Progressive Thai-Chinese</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Sushi Masato</div>
+                <div class="mini-card-desc">High-End Tokyo Omakase</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Resonance</div>
+                <div class="mini-card-desc">Boundless Asian Fusion</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Wana Yook</div>
+                <div class="mini-card-desc">Elevated Thai Rice & Curry</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Aksorn</div>
+                <div class="mini-card-desc">Heritage Mid-Century Thai</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-card-title"><span class="badge-1star">1 STAR</span> Nawa</div>
+                <div class="mini-card-desc">Modern Central Thai</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Practical Tips -->
+    <div class="tips-box">
+        <div class="tips-title">💡 Travel & Dining Survival Guide</div>
+        <ul class="tips-list">
+            <li><strong>Reservations:</strong> Book 1 to 3 months prior. Sorn and Potong require booking on exact release dates.</li>
+            <li><strong>Dress Code:</strong> Smart Casual to Formal (Long pants, closed shoes required for men in fine dining).</li>
+            <li><strong>Transit:</strong> Use BTS / MRT or boats between 5:30 PM – 8:00 PM to avoid Bangkok's heavy road traffic.</li>
+        </ul>
+    </div>
+
+</body>
+</html>
